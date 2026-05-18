@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab 5 - Rozwiązania</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; padding: 20px; }
+        .workspace { margin-top: 20px; padding: 15px; border: 2px dashed #ccc; min-height: 100px; }
+        .hidden { display: none; }
+        button { margin: 5px; cursor: pointer; }
+        table { border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #000; padding: 8px; }
+    </style>
+</head>
+<body>
+
+    <h1>Laboratorium 5: Funkcje i DOM</h1>
+    <button onclick="uruchomWybor()">WYBIERZ NUMER ZADANIA (1-10)</button>
+
+    <div id="output" class="workspace">
+        Wybierz zadanie, aby zobaczyć wynik.
+    </div>
+
+    <script>
+        function uruchomWybor() {
+            const wybor = prompt("Podaj numer zadania (1-10):");
+            const output = document.getElementById('output');
+            output.innerHTML = ""; 
+
+            switch (wybor) {
+                case "1":
+                    console.clear();
+                    console.log("--- Zadanie 1a (for) ---");
+                    for(let i=10; i>0; i--) console.log(i);
+                    console.log("Happy New Year!");
+
+                    console.log("--- Zadanie 1b (while) ---");
+                    let c = 10;
+                    while(c > 0) { console.log(c); c--; }
+                    console.log("Happy New Year!");
+                    output.innerText = "Wynik zadania 1 wyświetlony w konsoli (F12).";
+                    break;
+
+                case "2":
+                    const n = parseInt(prompt("Podaj liczbę do silni:"));
+                    const silnia = (num) => (num <= 1) ? 1 : num * silnia(num - 1);
+                    const wynikSilni = silnia(n);
+                    output.innerText = `Silnia z ${n} wynosi: ${wynikSilni}`;
+                    alert(`Silnia: ${wynikSilni}`);
+                    break;
+
+                case "3":
+                    const wiek = prompt("Podaj wiek:");
+                    if (parseInt(wiek) < 18) {
+                        output.innerText = "Przekierowanie dla nieletnich...";
+                        window.location.href = "https://www.google.com/search?q=gry+dla+dzieci";
+                    } else {
+                        output.innerText = "Użytkownik pełnoletni. Witaj!";
+                    }
+                    break;
+
+                case "4":
+                    output.innerHTML = `
+                        <p>Zadanie 4: Kliknij przycisk, aby zmienić jego kolor.</p>
+                        <button class="z4-btn">Przycisk A</button>
+                        <button class="z4-btn">Przycisk B</button>
+                        <button class="z4-btn">Przycisk C</button>
+                    `;     // template literal
+
+                    const btns = document.querySelectorAll('.z4-btn');
+                    btns.forEach(b => {
+                        b.onclick = function() {
+                            btns.forEach(x => x.style.backgroundColor = "");
+                            this.style.backgroundColor = "lightgreen";
+                        };
+                    });
+                    break;
+
+                case "5":
+                    output.innerHTML = `
+                        <button id="toggleBtn">Pokaż/Ukryj tekst</button>
+                        <p id="targetText">To jest element, którego widoczność zmieniamy.</p>
+                    `;
+                    document.getElementById('toggleBtn').onclick = () => {
+                        const txt = document.getElementById('targetText');
+                        txt.style.display = (txt.style.display === 'none') ? 'block' : 'none';
+                    };
+                    break;
+
+                case "6":
+                    output.innerHTML = `
+                        <input type="text" id="inp6"> <button id="btn6">Dodaj do listy</button>
+                        <ul id="list6"></ul>
+                    `;
+                    document.getElementById('btn6').onclick = () => {
+                        const val = document.getElementById('inp6').value;
+                        if(val) {
+                            const li = document.createElement('li');
+                            li.textContent = val;
+                            document.getElementById('list6').appendChild(li);
+                        }
+                    };
+                    break;
+
+                case "7":
+                    output.innerHTML = `
+                        <input id="imie" placeholder="Imię"> <input id="nazwisko" placeholder="Nazwisko">
+                        <button id="btn7">Dodaj do tabeli</button>
+                        <table id="tab7"><tr><th>Imię</th><th>Nazwisko</th></tr></table>
+                    `;
+                    document.getElementById('btn7').onclick = () => {
+                        const i = document.getElementById('imie'), n = document.getElementById('nazwisko');
+                        const row = document.getElementById('tab7').insertRow();
+                        row.insertCell(0).innerText = i.value;
+                        row.insertCell(1).innerText = n.value;
+                        i.value = ""; n.value = "";
+                    };
+                    break;
+
+                case "8":
+                    output.innerHTML = `
+                        <input type="number" id="temp" placeholder="Temperatura">
+                        <button onclick="window.conv(true)">C na F</button>
+                        <button onclick="window.conv(false)">F na C</button>
+                    `;
+                    window.conv = (toF) => {
+                        const t = parseFloat(document.getElementById('temp').value);
+                        const res = toF ? (t * 9/5 + 32) : ((t - 32) * 5/9);
+                        alert(`Wynik: ${res.toFixed(2)}`);
+                    };
+                    break;
+
+                case "9":
+                    output.innerHTML = `
+                        <input type="number" id="n1"> <input type="number" id="n2">
+                        <button id="btn9">Oblicz NWD</button> <p id="res9"></p>
+                    `;
+                    document.getElementById('btn9').onclick = () => {
+                        let a = Math.abs(document.getElementById('n1').value);
+                        let b = Math.abs(document.getElementById('n2').value);
+                        while(b) { a %= b; [a, b] = [b, a]; }
+                        document.getElementById('res9').innerText = "NWD = " + a;
+                    };
+                    break;
+
+                case "10":
+                    output.innerHTML = `
+                        <input type="number" id="ca"> <input type="number" id="cb"> <br>
+                        <button onclick="window.calc('+')">+</button>
+                        <button onclick="window.calc('-')">-</button>
+                        <button onclick="window.calc('*')">*</button>
+                        <button onclick="window.calc('/')">/</button>
+                        <button onclick="window.calc('^')">^</button>
+                        <h3 id="cr">Wynik: </h3>
+                    `;
+                    window.calc = (op) => {
+                        const a = parseFloat(document.getElementById('ca').value);
+                        const b = parseFloat(document.getElementById('cb').value);
+                        let r;
+                        if(op === '+') r = a + b;
+                        else if(op === '-') r = a - b;
+                        else if(op === '*') r = a * b;
+                        else if(op === '/') r = b !== 0 ? a/b : "Błąd!";
+                        else if(op === '^') r = Math.pow(a, b);
+                        document.getElementById('cr').innerText = "Wynik: " + r;
+                    };
+                    break;
+
+                default:
+                    output.innerText = "Niepoprawny numer zadania. Wybierz od 1 do 10.";
+            }
+        }
+    </script>
+</body>
+</html>
