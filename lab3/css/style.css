@@ -1,0 +1,158 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f6f8;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #e0e6ed;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px 120px;
+    z-index: 100;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.logo span {
+    color: #2e8b57;
+}
+
+ul.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+ul.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.active-link {
+    color: #2e8b57 !important;
+}
+
+article, section {
+    display: block;
+    padding: 0 120px;
+}
+
+.hero-section::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 400px;
+    background-image: url('../Images/tło.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+article {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+.article-element {
+    width: 50%;
+}
+
+h4 {
+    font-size: 24px;
+    position: relative;
+    display: inline-block;
+}
+
+h4::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background-color: #2e8b57;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    margin-bottom: 50px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.styled-table th {
+    background-color: #2e8b57;
+    color: white;
+    text-align: left;
+    padding: 15px;
+}
+
+.styled-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    background-color: #eaeaea;
+    font-weight: bold;
+}
+.hero-seriale::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 400px;
+    background-image: url('../Images/filmy.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+.hero-ksiazki::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 400px;
+    background-image: url('../Images/książki.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+.list-content {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.list-content li {
+    margin-bottom: 10px;
+}
