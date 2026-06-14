@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab 8 - Formularze JS</title>
+    <style>
+        body {  background-color: #213232;  font-family: sans-serif; max-width: 800px; margin: 20px auto; padding: 0 10px; }
+        .section { background: #4a7764; padding: 20px; margin-bottom: 30px; border-radius: 8px; border: 1px solid #ddd; }
+        .field { margin-bottom: 12px; }
+        label { display: block; font-weight: bold; margin-bottom: 4px; font-size: 0.9em; }
+        input[type="text"], input[type="password"], input[type="date"], select {
+            width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;
+        }
+        input:disabled, select:disabled { background: #eee; cursor: not-allowed; }
+        .error { color: #d32f2f; font-size: 0.8em; min-height: 1.2em; margin-top: 2px; }
+        .is-invalid { border-color: #d32f2f !important; background-color: #fff4f4; }
+        button { padding: 10px 15px; background: #70280d; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #45a049; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #eee; }
+    </style>
+</head>
+<body>
+
+    <!-- ================= ZADANIA 1-8 ================= -->
+    <div class="section">
+        <h2>Zadania 1-8: Formularz Rejestracji</h2>
+        <form id="mainForm" novalidate> <!-- novalidate wyłącza dymki HTML5 -->
+            <div class="field">
+                <label for="imie">Imię:</label>
+                <input type="text" id="imie" name="imie">
+                <div class="error" id="err-imie"></div>
+            </div>
+            
+            <div class="field">
+                <label for="nazwisko">Nazwisko:</label>
+                <input type="text" id="nazwisko" name="nazwisko">
+                <div class="error" id="err-nazwisko"></div>
+            </div>
+
+            <div class="field">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email">
+                <div class="error" id="err-email"></div>
+            </div>
+
+            <div class="field">
+                <label for="haslo">Hasło:</label>
+                <input type="password" id="haslo" name="haslo">
+                <div class="error" id="err-haslo"></div>
+            </div>
+
+            <div class="field">
+                <label for="haslo2">Powtórz hasło:</label>
+                <input type="password" id="haslo2" name="haslo2">
+                <div class="error" id="err-haslo2"></div>
+            </div>
+
+            <div class="field">
+                <label for="plec">Płeć:</label>
+                <select id="plec" name="plec">
+                    <option value="">Wybierz...</option>
+                    <option value="K">Kobieta</option>
+                    <option value="M">Mężczyzna</option>
+                </select>
+                <div class="error" id="err-plec"></div>
+            </div>
+
+            <div class="field">
+                <label for="telefon">Telefon (Zad 8):</label>
+                <input type="text" id="telefon" name="telefon">
+                <div class="error" id="err-telefon"></div>
+            </div>
+
+            <div class="field">
+                <label for="dataUrodzenia">Data Urodzenia (Zad 4):</label>
+                <input type="date" id="dataUrodzenia" name="dataUrodzenia">
+                <div class="error" id="err-dataUrodzenia"></div>
+            </div>
+
+            <div class="field">
+                <label for="kraj">Kraj (Zad 6, 7):</label>
+                <select id="kraj" name="kraj">
+                    <option value="">Wybierz...</option>
+                    <option value="Polska">Polska</option>
+                    <option value="Niemcy">Niemcy</option>
+                    <option value="Inny">Inny</option>
+                </select>
+                <div class="error" id="err-kraj"></div>
+            </div>
+
+            <div class="field" id="wojewodztwo-container">
+                <label for="wojewodztwo">Województwo:</label>
+                <input type="text" id="wojewodztwo" name="wojewodztwo" disabled>
+                <div class="error" id="err-wojewodztwo"></div>
+            </div>
+
+            <div class="field">
+                <label for="adresZam">Adres zamieszkania:</label>
+                <input type="text" id="adresZam" name="adresZam" disabled>
+                <div class="error" id="err-adresZam"></div>
+            </div>
+
+            <div class="field">
+                <label style="font-weight: normal; cursor: pointer;">
+                    <input type="checkbox" id="sameAdres" checked> 
+                    Adres korespondencyjny jest taki sam jak adres zamieszkania
+                </label>
+            </div>
+
+            <div class="field" id="adresKor-container" style="display: none;">
+                <label for="adresKor">Adres korespondencyjny:</label>
+                <input type="text" id="adresKor" name="adresKor" disabled>
+                <div class="error" id="err-adresKor"></div>
+            </div>
+
+            <button type="submit">Zapisz</button>
+        </form>
+    </div>
+
+    <!-- ================= ZADANIA DODATKOWE 9-10 ================= -->
+    <div class="section">
+        <h2>Zadanie 9: Lista Kontaktów</h2>
+        <form id="formKontakt">
+            <div class="field"><label>Imię: <input type="text" id="k-imie" required></label></div>
+            <div class="field"><label>Nazwisko: <input type="text" id="k-nazwisko" required></label></div>
+            <div class="field"><label>Telefon: <input type="text" id="k-telefon" required></label></div>
+            <button type="submit">Dodaj kontakt</button>
+        </form>
+        <table id="tabelaKontaktow">
+            <tr><th>Imię</th><th>Nazwisko</th><th>Telefon</th></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Zadanie 10: Quiz</h2>
+        <form id="formQuiz">
+            <div class="field"><label>Treść pytania: <input type="text" id="q-tresc" required></label></div>
+            <div class="field">
+                <label>Poprawne odpowiedzi (wielokrotny wybór z CTRL): 
+                    <select id="q-odp" multiple required style="height: 80px;">
+                        <option value="A">Opcja A</option>
+                        <option value="B">Opcja B</option>
+                        <option value="C">Opcja C</option>
+                        <option value="D">Opcja D</option>
+                    </select>
+                </label>
+            </div>
+            <button type="submit">Dodaj pytanie</button>
+        </form>
+        <ul id="listaPytan" style="margin-top: 15px;"></ul>
+    </div>
+
+    <script>
+        /* ======================== ZADANIA 1-8 ======================== */
+
+        // Elementy formularza z dynamicznym stanem
+        const krajSelect = document.getElementById('kraj');
+        const wojContainer = document.getElementById('wojewodztwo-container');
+        let wojInput = document.getElementById('wojewodztwo');
+        const adresZam = document.getElementById('adresZam');
+        const sameAdresCheck = document.getElementById('sameAdres');
+        const adresKorContainer = document.getElementById('adresKor-container');
+        const adresKor = document.getElementById('adresKor');
+
+        // Zad 8: Ograniczenie wpisywania tylko do cyfr
+        document.getElementById('telefon').addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g, '');
+        });
+
+        // Zad 6 i 7: Dynamiczna obsługa disabled / typów pól
+        function updateDynamicFields() {
+            const kraj = krajSelect.value;
+            
+            // Podmiana pola Województwo
+            if (kraj === 'Polska') {
+                if (wojInput.tagName !== 'SELECT') {
+                    const select = document.createElement('select');
+                    select.id = 'wojewodztwo';
+                    select.innerHTML = '<option value="">Wybierz...</option><option value="Mazowieckie">Mazowieckie</option><option value="Małopolskie">Małopolskie</option>';
+                    wojInput.replaceWith(select);
+                    wojInput = select;
+                }
+            } else {
+                if (wojInput.tagName !== 'INPUT') {
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.id = 'wojewodztwo';
+                    wojInput.replaceWith(input);
+                    wojInput = input;
+                }
+            }
+
+            wojInput.disabled = !kraj;
+            if (!kraj) wojInput.value = '';
+            
+            // Nasłuch na nowe pole wojewódzwa
+            wojInput.addEventListener('input', updateAdresState);
+            wojInput.addEventListener('change', updateAdresState);
+            updateAdresState();
+        }
+
+        function updateAdresState() {
+            const hasWoj = wojInput.value.trim() !== '';
+            adresZam.disabled = !hasWoj;
+            adresKor.disabled = !hasWoj;
+            if (!hasWoj) {
+                adresZam.value = '';
+                adresKor.value = '';
+            }
+        }
+
+        krajSelect.addEventListener('change', updateDynamicFields);
+
+        // Ukrywanie/odkrywanie adresu korespondencyjnego
+        sameAdresCheck.addEventListener('change', function() {
+            adresKorContainer.style.display = this.checked ? 'none' : 'block';
+            if (this.checked) adresKor.value = '';
+        });
+
+        // Metody pomocnicze do walidacji
+        const isAdult = (dateStr) => {
+            const dob = new Date(dateStr);
+            const today = new Date();
+            let age = today.getFullYear() - dob.getFullYear();
+            const m = today.getMonth() - dob.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) age--;
+            return age >= 18;
+        };
+        const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        const isStrongPassword = (pass) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(pass);
+
+        // ZAD 2f: Walidacja podpięta POD PRZYCISK (Zdarzenie Submit)
+        document.getElementById('mainForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+
+            // Reset stanów błędów
+            document.querySelectorAll('.error').forEach(el => el.textContent = '');
+            document.querySelectorAll('#mainForm input, #mainForm select').forEach(el => {
+                el.classList.remove('is-invalid');
+                el.setCustomValidity(''); // Zad 2: wymagane użycie setCustomValidity
+            });
+
+            // Funkcja ustawiająca błąd
+            const setError = (id, msg) => {
+                const el = document.getElementById(id);
+                el.setCustomValidity(msg);
+                el.classList.add('is-invalid');
+                document.getElementById('err-' + id).textContent = msg; // Zad 3: wiadomość pod polem
+                isValid = false;
+            };
+
+            const v = {
+                imie: document.getElementById('imie').value.trim(),
+                nazwisko: document.getElementById('nazwisko').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                haslo: document.getElementById('haslo').value,
+                haslo2: document.getElementById('haslo2').value,
+                plec: document.getElementById('plec').value,
+                telefon: document.getElementById('telefon').value.trim(),
+                data: document.getElementById('dataUrodzenia').value,
+                kraj: krajSelect.value,
+                woj: wojInput.value.trim(),
+                zam: adresZam.value.trim(),
+                kor: adresKor.value.trim()
+            };
+
+            // Reguły walidacji
+            if (!v.imie) setError('imie', 'Podaj imię.');
+            if (!v.nazwisko) setError('nazwisko', 'Podaj nazwisko.');
+            
+            if (!v.email) setError('email', 'Podaj email.');
+            else if (!isValidEmail(v.email)) setError('email', 'Niepoprawny format email.');
+
+            if (!v.haslo) setError('haslo', 'Podaj hasło.');
+            else if (!isStrongPassword(v.haslo)) setError('haslo', 'Min. 8 znaków, mała/duża litera, cyfra i znak specjalny.');
+
+            if (!v.haslo2) setError('haslo2', 'Powtórz hasło.');
+            else if (v.haslo !== v.haslo2) setError('haslo2', 'Hasła nie są identyczne.');
+
+            if (!v.plec) setError('plec', 'Wybierz płeć.');
+            
+            if (!v.telefon) setError('telefon', 'Podaj numer telefonu.');
+            else if (v.telefon.length < 9) setError('telefon', 'Zbyt krótki numer.');
+
+            if (!v.data) setError('dataUrodzenia', 'Podaj datę urodzenia.');
+            else if (!isAdult(v.data)) setError('dataUrodzenia', 'Musisz mieć skończone 18 lat.');
+
+            if (!v.kraj) setError('kraj', 'Wybierz kraj.');
+            if (!wojInput.disabled && !v.woj) setError('wojewodztwo', 'Pole wymagane.');
+            if (!adresZam.disabled && !v.zam) setError('adresZam', 'Pole wymagane.');
+            if (!sameAdresCheck.checked && !adresKor.disabled && !v.kor) setError('adresKor', 'Pole wymagane.');
+
+            // Zad 2g
+            if (isValid) alert('Formularz jest poprawnie wypełniony!');
+        });
+
+        /* ======================== ZADANIE 9 ======================== */
+        class Kontakt {
+            constructor(imie, nazwisko, numerTelefonu) {
+                this.imie = imie;
+                this.nazwisko = nazwisko;
+                this.numerTelefonu = numerTelefonu;
+            }
+        }
+        
+        class ListaKontaktow {
+            constructor() { this.lista = []; }
+            dodajKontakt(k) { this.lista.push(k); }
+        }
+
+        const bazaKontaktow = new ListaKontaktow();
+        document.getElementById('formKontakt').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const imie = document.getElementById('k-imie').value;
+            const nazwisko = document.getElementById('k-nazwisko').value;
+            const tel = document.getElementById('k-telefon').value;
+            
+            bazaKontaktow.dodajKontakt(new Kontakt(imie, nazwisko, tel));
+            
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td>${imie}</td><td>${nazwisko}</td><td>${tel}</td>`;
+            document.getElementById('tabelaKontaktow').appendChild(tr);
+            this.reset();
+        });
+
+        /* ======================== ZADANIE 10 ======================== */
+        class Pytanie {
+            constructor(tresc, odpowiedz) {
+                this.tresc = tresc;
+                this.odpowiedz = odpowiedz; // Array
+            }
+        }
+
+        class Quiz {
+            constructor() { this.pytania = []; }
+            dodajPytanie(p) { this.pytania.push(p); }
+        }
+
+        const mojQuiz = new Quiz();
+        document.getElementById('formQuiz').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const tresc = document.getElementById('q-tresc').value;
+            const options = document.getElementById('q-odp').selectedOptions;
+            const odp = Array.from(options).map(opt => opt.value);
+
+            mojQuiz.dodajPytanie(new Pytanie(tresc, odp));
+            
+            const li = document.createElement('li');
+            li.textContent = `${tresc} (Odp: ${odp.join(', ')})`;
+            document.getElementById('listaPytan').appendChild(li);
+            this.reset();
+        });
+
+    </script>
+</body>
+</html>
