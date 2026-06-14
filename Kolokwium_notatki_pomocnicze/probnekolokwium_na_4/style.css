@@ -1,0 +1,234 @@
+:root {
+
+    --kolor-glowny: #89BCFA;      
+    --kolor-akcentu: #FA9489;     
+    --kolor-tla: #FAB589;             
+    --kolor-tekstu: #A59992;      
+    --kolor-szczegol: #89F7FA;   
+    
+    /* Kolory pomocnicze */
+    --kolor-bledu: #e23e57;               /* Czerwony do walidacji */
+    --kolor-sukcesu: #17b978;             /* Zielony do sukcesu */
+}
+/* box-sizing: border-box sprawia, że padding i border nie powiększają szerokości elementu! */
+* {
+    box-sizing: border-box; 
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* Font sans-serif */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--kolor-tla, #f4f6f9); 
+    color: var(--kolor-tekstu, #333);
+    line-height: 1.6;
+}
+
+header {
+    background-color: var(--kolor-glowny, #4A90E2);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Subtelny cień pod nagłówkiem */
+}
+
+/* Stylowanie sekcji nawigacji */
+nav {
+    background-color: var(--kolor-szczegol, #333);
+    padding: 10px;
+}
+
+nav ul {
+    list-style: none; 
+    display: flex; 
+    justify-content: center; 
+    gap: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s; 
+}
+
+nav ul li a:hover {
+    color: var(--kolor-akcentu, #FF6B6B); /* Zmiana koloru przy najechaniu myszką */
+}
+
+/* Główny kontener na środku strony */
+main {
+    max-width: 1000px;
+    margin: 30px auto; 
+    padding: 0 20px;
+}
+
+/* Sekcje wyglądające jak białe "karty" */
+section {
+    background: white;
+    padding: 25px;
+    margin-bottom: 30px;
+    border-radius: 8px; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* ------------------------------------------------------------------------- */
+/* 4. FORMULARZE, INPUTY I WALIDACJA (Lab 8)                                 */
+/* ------------------------------------------------------------------------- */
+fieldset {
+    border: 2px solid var(--kolor-glowny, #ccc);
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+legend {
+    font-weight: bold;
+    color: var(--kolor-glowny, #4A90E2);
+    padding: 0 10px;
+}
+
+/* Uniwersalne ostylowanie pól tekstowych i innych inputów */
+input[type="text"], 
+input[type="email"], 
+input[type="tel"], 
+input[type="number"], 
+input[type="password"],
+input[type="date"],
+select, 
+textarea {
+    width: 100%; 
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit; 
+    transition: border-color 0.2s;
+}
+
+/* Efekt gdy użytkownik kliknie w pole (Focus) */
+input:focus, select:focus, textarea:focus {
+    border-color: var(--kolor-glowny, #4A90E2);
+    outline: none;
+}
+
+/* Checkboxy i radio buttony obok tekstu */
+input[type="checkbox"], 
+input[type="radio"] {
+    width: auto;
+    margin-right: 8px;
+    transform: scale(1.2);
+}
+
+/* [KLUCZOWE DO WALIDACJI Z LAB 8] 
+   JS będzie nadawał tę klasę błędnym polom! */
+.invalid {
+    border-color: var(--kolor-bledu) !important;
+    background-color: #fff5f5;
+}
+
+/* Tekst błędu z walidacji pod inputem  */
+.error-msg {
+    color: var(--kolor-bledu);
+    font-size: 13px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    display: none;
+    font-weight: bold;
+}
+
+/* ------------------------------------------------------------------------- */
+/* 5. PRZYCISKI - NAJWAŻNIEJSZY ELEMENT UI (Wymóg z zadania na 4.0)          */
+/* ------------------------------------------------------------------------- */
+button {
+    background-color: var(--kolor-akcentu, #FF6B6B);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+/* Efekt po najechaniu (hover) */
+button:hover {
+    filter: brightness(0.9); 
+}
+
+/* Efekt po wciśnięciu (active) */
+button:active {
+    transform: scale(0.98); 
+}
+
+/* Przycisk wysyłający na pełną szerokość */
+.btn-wyslij {
+    width: 100%;
+    font-size: 18px;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+/* ------------------------------------------------------------------------- */
+/* 6. TABELE (KOSZYK ZAKUPÓW, LISTY KONTAKTÓW)                               */
+/* ------------------------------------------------------------------------- */
+.tabela-estetyczna {
+    width: 100%;
+    border-collapse: collapse; 
+    margin-top: 15px;
+    background-color: white;
+}
+
+.tabela-estetyczna th, 
+.tabela-estetyczna td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.tabela-estetyczna th {
+    background-color: var(--kolor-glowny, #4A90E2);
+    color: white;
+}
+
+/* "Pasiasta" tabela - co drugi wiersz ma szare tło (Lepsza czytelność) */
+.tabela-estetyczna tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* ------------------------------------------------------------------------- */
+/* 7. GOTOWCE I KLASY POMOCNICZE  (Czysty CSS i Flexbox)                     */
+/* ------------------------------------------------------------------------- */
+
+/*  FLEXBOX GOTOWIEC - Idealny do układania przycisków czy pól w jednej linii */
+.uklad-flex {
+    display: flex;
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: space-between; 
+    gap: 15px; 
+}
+
+/* [Lab 3] ZAAWANSOWANE POZYCJONOWANIE (absolute / relative) */
+/* Żeby pozycjonować dziecko "absolute", jego rodzic MUSI mieć "relative"! */
+.rodzic-relative {
+    position: relative;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+.dziecko-absolute {
+    position: absolute;
+    top: 5px;   /* 5px od górnej krawędzi rodzica */
+    right: 5px; /* 5px od prawej krawędzi rodzica */
+    background: red;
+    color: white;
+    padding: 2px 5px;
+    border-radius: 3px;
+}

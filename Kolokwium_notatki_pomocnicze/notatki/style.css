@@ -1,0 +1,273 @@
+/* ========================================================================= */
+/*                                  PLIK CSS                                 */
+/* Wskazówka na kolokwium: Użyj Ctrl+H, by zamienić _KOLOR_... na kolory HEX */
+/* ========================================================================= */
+
+/* ------------------------------------------------------------------------- */
+/* 1. ZMIENNE CSS (Lab 3 - SASS/Podstawy CSS)                                */
+/* ------------------------------------------------------------------------- */
+:root {
+    /* Tu wkleisz paletę z PDF na kolokwium */
+    --kolor-glowny: _KOLOR_GLOWNY_;       /* np. niebieski / główne tło nagłówka */
+    --kolor-akcentu: _KOLOR_AKCENTU_;     /* np. koralowy / przyciski! */
+    --kolor-tla: _KOLOR_TLA_;             /* np. jasnoszary / tło strony */
+    --kolor-tekstu: _KOLOR_TEKSTU_;       /* np. ciemnoszary / czarny */
+    --kolor-szczegol: _KOLOR_SZCZEGOL_;   /* np. granatowy / ramki */
+    
+    /* Kolory pomocnicze (zawsze warto je mieć) */
+    --kolor-bledu: #e23e57;               /* Czerwony do walidacji (Lab 8) */
+    --kolor-sukcesu: #17b978;             /* Zielony do sukcesu */
+}
+
+/* ------------------------------------------------------------------------- */
+/* 2. RESET I PODSTAWY (Lab 3)                                               */
+/* ------------------------------------------------------------------------- */
+/* box-sizing: border-box sprawia, że padding i border nie powiększają szerokości elementu! */
+* {
+    box-sizing: border-box; 
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* Zwykły, bezpieczny font sans-serif */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--kolor-tla, #f4f6f9); /* Fallback, jak nie podasz zmiennej */
+    color: var(--kolor-tekstu, #333);
+    line-height: 1.6;
+}
+
+/* ------------------------------------------------------------------------- */
+/* 3. LAYOUT GŁÓWNY I POZYCJONOWANIE (Lab 3)                                 */
+/* ------------------------------------------------------------------------- */
+header {
+    background-color: var(--kolor-glowny, #4A90E2);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    
+    /* [LAB 3] Pozycjonowanie 'sticky' sprawia, że element "przykleja się" 
+       do góry ekranu podczas przewijania strony! Wymaga top: 0; */
+    position: sticky;
+    top: 0;
+    z-index: 100; /* Zapewnia, że nagłówek zasłania resztę elementów, a nie odwrotnie */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* [LAB 3] Subtelny cień pod nagłówkiem */
+}
+
+/* Stylowanie sekcji nawigacji */
+nav {
+    background-color: var(--kolor-szczegol, #333);
+    padding: 10px;
+}
+
+nav ul {
+    list-style: none; /* Usuwa wypunktowanie (kropki) z listy (Lab 2/3) */
+    /* Poniżej użycie Flexboxa z Lab 3 */
+    display: flex; 
+    justify-content: center; /* Wyśrodkowanie w poziomie */
+    gap: 20px; /* Odstęp między linkami */
+}
+
+nav ul li a {
+    text-decoration: none; /* Usuwa podkreślenie z linku */
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s; /* Płynne przejście przy :hover */
+}
+
+nav ul li a:hover {
+    color: var(--kolor-akcentu, #FF6B6B); /* Zmiana koloru przy najechaniu myszką */
+}
+
+/* Główny kontener na środku strony */
+main {
+    max-width: 1000px;
+    margin: 30px auto; /* auto po bokach = wyśrodkowanie (Lab 3) */
+    padding: 0 20px;
+}
+
+/* Sekcje wyglądające jak białe "karty" */
+section {
+    background: white;
+    padding: 25px;
+    margin-bottom: 30px;
+    border-radius: 8px; /* Zaokrąglenie rogów */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* ------------------------------------------------------------------------- */
+/* 4. FORMULARZE, INPUTY I WALIDACJA (Lab 8)                                 */
+/* ------------------------------------------------------------------------- */
+fieldset {
+    border: 2px solid var(--kolor-glowny, #ccc);
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+legend {
+    font-weight: bold;
+    color: var(--kolor-glowny, #4A90E2);
+    padding: 0 10px;
+}
+
+/* Uniwersalne ostylowanie pól tekstowych i innych inputów */
+input[type="text"], 
+input[type="email"], 
+input[type="tel"], 
+input[type="number"], 
+input[type="password"],
+input[type="date"],
+select, 
+textarea {
+    width: 100%; /* Zajmuje 100% dostępnej szerokości */
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit; /* Dziedziczy czcionkę z body */
+    transition: border-color 0.2s;
+}
+
+/* Efekt gdy użytkownik kliknie w pole (Focus) */
+input:focus, select:focus, textarea:focus {
+    border-color: var(--kolor-glowny, #4A90E2);
+    outline: none;
+}
+
+/* Checkboxy i radio buttony obok tekstu */
+input[type="checkbox"], 
+input[type="radio"] {
+    width: auto;
+    margin-right: 8px;
+    transform: scale(1.2); /* Lekkie powiększenie (Lab 8) */
+}
+
+/* [KLUCZOWE DO WALIDACJI Z LAB 8] 
+   JS będzie nadawał tę klasę błędnym polom! */
+.invalid {
+    border-color: var(--kolor-bledu) !important;
+    background-color: #fff5f5;
+}
+
+/* Tekst błędu z walidacji pod inputem (Zadanie 3 Lab 8) */
+.error-msg {
+    color: var(--kolor-bledu);
+    font-size: 13px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    display: none; /* Domyślnie ukryte, JS zmienia to na 'block' */
+    font-weight: bold;
+}
+
+/* ------------------------------------------------------------------------- */
+/* 5. PRZYCISKI - NAJWAŻNIEJSZY ELEMENT UI (Wymóg z zadania na 4.0)          */
+/* ------------------------------------------------------------------------- */
+button {
+    background-color: var(--kolor-akcentu, #FF6B6B);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+/* Efekt po najechaniu (hover) */
+button:hover {
+    filter: brightness(0.9); /* Przyciemnia lekko tło */
+}
+
+/* Efekt po wciśnięciu (active) */
+button:active {
+    transform: scale(0.98); /* Przycisk "siada" przy kliknięciu */
+}
+
+/* Przycisk wysyłający na pełną szerokość */
+.btn-wyslij {
+    width: 100%;
+    font-size: 18px;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+/* ------------------------------------------------------------------------- */
+/* 6. TABELE (KOSZYK ZAKUPÓW, LISTY KONTAKTÓW) (Lab 2 i Lab 6)               */
+/* ------------------------------------------------------------------------- */
+.tabela-estetyczna {
+    width: 100%;
+    border-collapse: collapse; /* [Lab 2] Łączy podwójne obramowania w pojedynczą linię */
+    margin-top: 15px;
+    background-color: white;
+}
+
+.tabela-estetyczna th, 
+.tabela-estetyczna td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.tabela-estetyczna th {
+    background-color: var(--kolor-glowny, #4A90E2);
+    color: white;
+}
+
+/* "Pasiasta" tabela - co drugi wiersz ma szare tło (Lepsza czytelność) */
+.tabela-estetyczna tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* ------------------------------------------------------------------------- */
+/* 7. GOTOWCE I KLASY POMOCNICZE Z LAB 3 (Czysty CSS i Flexbox)              */
+/* ------------------------------------------------------------------------- */
+
+/* [Lab 3] FLEXBOX GOTOWIEC - Idealny do układania przycisków czy pól w jednej linii */
+.uklad-flex {
+    display: flex;
+    flex-direction: row; /* Elementy obok siebie. Zmień na 'column' by ułożyć pod sobą */
+    align-items: center; /* Centrowanie w pionie */
+    justify-content: space-between; /* Rozsunięcie do skrajnych krawędzi */
+    gap: 15px; /* Odstęp między elementami */
+}
+
+/* [Lab 3] ZAAWANSOWANE POZYCJONOWANIE (absolute / relative) */
+/* Żeby pozycjonować dziecko "absolute", jego rodzic MUSI mieć "relative"! */
+.rodzic-relative {
+    position: relative;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+.dziecko-absolute {
+    position: absolute;
+    top: 5px;   /* 5px od górnej krawędzi rodzica */
+    right: 5px; /* 5px od prawej krawędzi rodzica */
+    background: red;
+    color: white;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+/* [Lab 3 Zadanie 11, 12] PSEUDO-ELEMENTY (::before, ::after) */
+/* Pozwalają dodać treść lub grafikę przed/za elementem z poziomu CSS! */
+.ozdobny-naglowek::before {
+    content: "🛒 "; /* Dodaje ikonkę koszyka przed tekstem */
+}
+
+.ozdobny-naglowek::after {
+    content: " 🛒"; /* Dodaje ikonkę koszyka za tekstem */
+}
+
+/* [Lab 5] UKRYWANIE ELEMENTÓW (Do wykorzystania w JavaScript) */
+.ukryta-sekcja {
+    display: none; /* Całkowicie znika ze strony, używane w JS do maszyny stanów */
+}
+
+/* Używane gdy chcesz, by element zniknął, ale nadal zajmował miejsce! */
+.niewidoczny {
+    visibility: hidden; 
+}

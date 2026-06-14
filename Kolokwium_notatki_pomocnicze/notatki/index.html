@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <!-- [LAB 2] Podstawowe meta tagi do kodowania znaków i responsywności -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- PAMIĘTAJ O PODMIANIE DANYCH! (Ctrl+H) -->
+    <title>Projekt Zaliczeniowy - Adam Lech 73264</title>
+    
+    <!-- [LAB 3] Podpięcie kaskadowych arkuszy stylów (CSS) -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- [LAB 4] Podpięcie pliku JavaScript. Atrybut 'defer' sprawia, że JS ładuje się na końcu, 
+         nie blokując renderowania interfejsu (dobra praktyka Clean Code). -->
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <!-- ========================================================================= -->
+    <!-- [LAB 2] ZNACZNIKI SEMANTYCZNE (Dzielą stronę na logiczne obszary)         -->
+    <!-- ========================================================================= -->
+
+    <header>
+        <h1>_NAZWA_APLIKACJI_ (np. Kwiaciarnia / Przychodnia / Salon)</h1>
+        <p>Projekt zaliczeniowy z Programowania - Adam Lech 73264</p>
+        <hr>
+    </header>
+
+    <nav>
+        <ul class="uklad-flex">
+            <li><a href="#formularz-glowny-sekcja">Formularz Zamówienia / Rejestracji</a></li>
+            <li><a href="#tabela-danych-sekcja">Podsumowanie / Koszyk</a></li>
+            <li><a href="#kompendium">Znamiona HTML i Moduły</a></li>
+        </ul>
+        <hr>
+    </nav>
+
+    <main>
+        
+        <!-- ========================================================================= -->
+        <!-- [LAB 8] ZAAWANSOWANE FORMULARZE (OCENA 3.0 i 4.0)                         -->
+        <!-- ========================================================================= -->
+        
+        <section id="formularz-glowny-sekcja">
+            <h2>Wypełnij dane formularza</h2>
+            
+            <!-- Atrybut 'novalidate' WYŁĄCZA domyślne dymki przeglądarki. 
+                 Dzięki temu pełną kontrolę nad wyświetlaniem błędów (setCustomValidity) przejmuje nasz JS. -->
+            <form id="_ID_FORMULARZA_" novalidate>
+                
+                <!-- BLOK 1: DANE OSOBOWE I BEZPIECZEŃSTWO -->
+                <fieldset>
+                    <legend>1. Dane Kontaktowe i Autoryzacja</legend>
+                    
+                    <label for="_INPUT_IMIE_">Imię / Nazwa:</label>
+                    <input type="text" id="_INPUT_IMIE_" name="_INPUT_IMIE_" minlength="2" required>
+                    <div class="error-msg" id="_ERROR_IMIE_"></div>
+
+                    <label for="_INPUT_NAZWISKO_">Nazwisko:</label>
+                    <input type="text" id="_INPUT_NAZWISKO_" name="_INPUT_NAZWISKO_" minlength="2" required>
+                    <div class="error-msg" id="_ERROR_NAZWISKO_"></div>
+
+                    <label for="_INPUT_EMAIL_">E-mail:</label>
+                    <input type="email" id="_INPUT_EMAIL_" name="_INPUT_EMAIL_" required>
+                    <div class="error-msg" id="_ERROR_EMAIL_"></div>
+                    
+                    <label for="_INPUT_TELEFON_">Telefon (Tylko cyfry, Regex w JS):</label>
+                    <input type="tel" id="_INPUT_TELEFON_" name="_INPUT_TELEFON_" required>
+                    <div class="error-msg" id="_ERROR_TELEFON_"></div>
+
+                    <!-- [NOWOŚĆ - ZABEZPIECZENIE NA INNY WARIANT ZADANIA] Rejestracja konta -->
+                    <label for="_INPUT_HASLO_">Hasło (min. 8 znaków):</label>
+                    <input type="password" id="_INPUT_HASLO_" name="_INPUT_HASLO_" minlength="8">
+                    <div class="error-msg" id="_ERROR_HASLO_"></div>
+                </fieldset>
+
+                <!-- BLOK 2: DATY I CZAS (np. Rezerwacja wizyty, Data dostawy) -->
+                <fieldset>
+                    <legend>2. Terminarz i Harmonogram</legend>
+                    
+                    <label for="_INPUT_DATA_">Wybierz datę (wizyty / dostawy):</label>
+                    <!-- Atrybut 'min' blokuje wybór dat z przeszłości w samym kalendarzu HTML -->
+                    <input type="date" id="_INPUT_DATA_" name="_INPUT_DATA_">
+                    <div class="error-msg" id="_ERROR_DATA_"></div>
+
+                    <label for="_INPUT_CZAS_">Wybierz godzinę:</label>
+                    <input type="time" id="_INPUT_CZAS_" name="_INPUT_CZAS_">
+                </fieldset>
+
+                <!-- BLOK 3: WYBÓR GŁÓWNEGO PRODUKTU / USŁUGI -->
+                <fieldset>
+                    <legend>3. Wybór Opcji i Wartości Liczbowe</legend>
+                    
+                    <label for="_SELECT_GLOWNY_">Wybierz główny produkt / usługę:</label>
+                    <select id="_SELECT_GLOWNY_" name="_SELECT_GLOWNY_" required>
+                        <option value="">-- Wybierz z listy --</option>
+                        <option value="_OPCJA_1_">_NAZWA_OPCJI_1_</option>
+                        <option value="_OPCJA_2_">_NAZWA_OPCJI_2_</option>
+                        <option value="_OPCJA_3_">_NAZWA_OPCJI_3_</option>
+                    </select>
+                    <div class="error-msg" id="_ERROR_SELECT_"></div>
+
+                    <label for="_INPUT_ILOSC_">Ilość / Wartość:</label>
+                    <input type="number" id="_INPUT_ILOSC_" name="_INPUT_ILOSC_" min="1" max="100" value="1" required>
+                    <div class="error-msg" id="_ERROR_ILOSC_"></div>
+                    
+                    <!-- Przycisk typu 'button' NIE WYSYŁA formularza. JS używa go do wprowadzania danych do Tablicy (Koszyka) -->
+                    <button type="button" id="_BTN_DODAJ_DO_KOSZYKA_">Dodaj do listy / koszyka</button>
+                </fieldset>
+
+                <!-- BLOK 4: OPCJE JEDNOKROTNE (RADIO) I WIELOKROTNE (CHECKBOX) -->
+                <fieldset>
+                    <legend>4. Usługi dodatkowe i Płatność</legend>
+                    
+                    <!-- RADIO: Wymusza wybór tylko JEDNEJ z opcji. Atrybut 'name' musi być ten sam dla całej grupy! -->
+                    <p>Wybierz metodę realizacji (Radio):</p>
+                    <input type="radio" id="_RADIO_1_" name="_GRUPA_RADIO_" value="_WARTOSC_R1_" checked>
+                    <label for="_RADIO_1_">Opcja Standard (0 PLN)</label><br>
+                    
+                    <input type="radio" id="_RADIO_2_" name="_GRUPA_RADIO_" value="_WARTOSC_R2_">
+                    <label for="_RADIO_2_">Opcja Premium (+20 PLN)</label><br>
+                    
+                    <hr style="margin: 10px 0;">
+
+                    <!-- CHECKBOX: Pozwala na wybór wielu opcji naraz. Klasa służy w JS do łapania ich za pomocą querySelectorAll -->
+                    <p>Wybierz dodatki (Checkbox):</p>
+                    <input type="checkbox" id="_DODATEK_1_" class="_KLASA_CHECKBOXY_DODATKOW_" value="_KOSZT_D1_">
+                    <label for="_DODATEK_1_">_OPIS_DODATKU_1_ (+10 PLN)</label><br>
+
+                    <input type="checkbox" id="_DODATEK_2_" class="_KLASA_CHECKBOXY_DODATKOW_" value="_KOSZT_D2_">
+                    <label for="_DODATEK_2_">_OPIS_DODATKU_2_ (+15 PLN)</label><br>
+                </fieldset>
+
+                <!-- BLOK 5: MASZYNA STANÓW I POLA UKRYTE (UX na 5.0) -->
+                <fieldset>
+                    <legend>5. Opcje Specjalne i Uwagi</legend>
+                    
+                    <!-- Po kliknięciu tego checkboxa, zdarzenie 'change' w JS zmieni styl diva poniżej z 'none' na 'block' -->
+                    <input type="checkbox" id="_CHECKBOX_AKTYWATOR_" name="_CHECKBOX_AKTYWATOR_">
+                    <label for="_CHECKBOX_AKTYWATOR_">Wymaga dodatkowych danych (np. Inny adres dostawy, Faktura)</label><br>
+
+                    <div id="_UKRYTA_SEKCJA_" style="display: none; background: #eee; padding: 15px; margin-top: 10px; border-left: 4px solid var(--kolor-glowny, blue);">
+                        <label for="_INPUT_UKRYTY_1_">Podaj wymagane dane (Adres/NIP):</label>
+                        <input type="text" id="_INPUT_UKRYTY_1_">
+                        <div class="error-msg" id="_ERROR_UKRYTY_1_"></div>
+                    </div>
+
+                    <label for="_TEXTAREA_UWAGI_">Dodatkowe uwagi:</label><br>
+                    <textarea id="_TEXTAREA_UWAGI_" name="_TEXTAREA_UWAGI_" rows="3" style="width: 100%;"></textarea>
+                </fieldset>
+
+                <!-- WYMÓG NA 4.0: Dynamiczna aktualizacja sumy na podstawie wyborów DOM -->
+                <h3 style="text-align: right; color: var(--kolor-akcentu, red);">
+                    Do zapłaty: <span id="_TEXT_SUMA_NA_ZYWO_">0.00 PLN</span>
+                </h3>
+
+                <!-- Przycisk submit wywołuje zdarzenie formularza. JS zablokuje przeładowanie strony (e.preventDefault()) -->
+                <button type="submit" id="_BTN_WYSLIJ_GLOWNY_" class="btn-wyslij">Zatwierdź i Wyślij</button>
+            </form>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- [LAB 2 & LAB 6/7] TABELA I KOSZYK (Struktura danych dla oceny 5.0)        -->
+        <!-- ========================================================================= -->
+        <section id="tabela-danych-sekcja">
+            <h2>Podsumowanie / Koszyk</h2>
+            <p>Elementy dodane do wirtualnej tablicy w JavaScript zostaną wyrenderowane w tej tabeli.</p>
+            
+            <table border="1" id="_TABELA_WYNIKOW_" class="tabela-estetyczna">
+                <thead>
+                    <tr>
+                        <!-- Nagłówki muszą zgadzać się z ilością danych wstrzykiwanych przez JS -->
+                        <th>Nazwa / Opcja</th>
+                        <th>Cena Jednostkowa</th>
+                        <th>Ilość</th>
+                        <th>Wartość całkowita</th>
+                        <th>Akcja (Usuń)</th>
+                    </tr>
+                </thead>
+                <!-- Ciało tabeli pozostawiamy puste. Jest to kontener dla metody innerHTML lub appendChild() z JS -->
+                <tbody id="_TABELA_BODY_">
+                </tbody>
+                <!-- Stopka tabeli służy do agregacji wyników -->
+                <tfoot>
+                    <tr>
+                        <td colspan="3" style="text-align: right;"><strong>SUMA W KOSZYKU:</strong></td>
+                        <td colspan="2"><strong id="_TEXT_SUMA_TABELI_">0.00 PLN</strong></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+
+        <hr>
+
+        <!-- ========================================================================= -->
+        <!-- MODUŁY OPCJONALNE (Elementy specyficzne z laboratoriów)                   -->
+        <!-- ========================================================================= -->
+        <section id="kompendium" style="border: 3px dashed #A59992; padding: 20px;">
+            <h2 style="color: #A59992;">Moduły Opcjonalne (Znamiona HTML z całego kursu)</h2>
+            <p><em>Wykorzystaj te struktury, jeśli specyfikacja zadania zakłada ich implementację.</em></p>
+
+            <article>
+                <h3>1. Niestandardowe elementy wejścia (HTML5)</h3>
+                
+                <label>Wybór koloru (Paleta barw - type="color"):</label>
+                <input type="color"><br><br>
+
+                <label>Suwak wartości (Skala liniowa - type="range"):</label>
+                <input type="range" min="1" max="10" step="1"><br><br>
+
+                <!-- Datalist tworzy pole tekstowe z wbudowanym autouzupełnianiem (auto-complete).
+                     Atrybut list="" w input musi zgadzać się z id="" w tagu datalist! -->
+                <label>Podaj lokalizację (Z podpowiedziami - datalist):</label>
+                <input type="text" list="slownik-miast">
+                <datalist id="slownik-miast">
+                    <option value="Rzeszów"></option>
+                    <option value="Kraków"></option>
+                    <option value="Warszawa"></option>
+                </datalist>
+            </article>
+
+            <article>
+                <h3>2. Struktury ułożenia treści (Listy Lab 2)</h3>
+                <div class="uklad-flex">
+                    <div>
+                        <h4>Lista punktowana (ul)</h4>
+                        <ul><li>Opcja A</li><li>Opcja B</li></ul>
+                    </div>
+                    <div>
+                        <h4>Lista sekwencyjna (ol)</h4>
+                        <ol><li>Krok 1</li><li>Krok 2</li></ol>
+                    </div>
+                    <div>
+                        <h4>Lista definicyjna (dl)</h4>
+                        <dl>
+                            <dt>Termin</dt>
+                            <dd>Definicja / Opis pojęcia</dd>
+                        </dl>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+    </main>
+
+    <footer>
+        <hr>
+        <p>&copy; 2026 Projekt zaliczeniowy: Adam Lech 73264</p>
+    </footer>
+
+</body>
+</html>

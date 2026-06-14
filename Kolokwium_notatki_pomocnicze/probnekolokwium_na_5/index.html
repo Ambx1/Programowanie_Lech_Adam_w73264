@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kolokwium - Adam Lech 73264 - Strona do zamawiania bukietów</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Strona do zamawiania bukietów</h1>
+        <p>Adam Lech 73264</p>
+        <hr> 
+    </header>
+    <nav>
+        <ul class="uklad-flex">
+            <li><a href="#formularz-glowny-sekcja">Formularz Zgłoszeniowy</a></li>
+            <li><a href="#tabela-danych-sekcja"> Koszyk</a></li>
+        </ul>
+        <hr>
+    </nav>
+
+    <main>
+        <section id="formularz-glowny-sekcja"> 
+            <h2>Wypełnij dane</h2>
+        <!-- ================================================================================= -->
+        <!-- zad na 3  formularz zawierający pola wyboru rodzaju bukietu i danych kontaktowych -->
+        <!-- ================================================================================= -->
+        <form id="_ID_FORMULARZA_" novalidate>
+            <fieldset>
+                <legend>Wybór rodzaju bukietu</legend>
+                <label for="_Rodaj_Bukietu">Wybierz rodzaj bukietu:</label>
+                <select id="_Rodaj_Bukietu" name="_Rodaj_Bukietu" required>
+                    <option value="">-- Wybierz z listy --</option>
+                    <option value="różowy_różany">różowy różany 20zł</option>
+                    <option value="biały_lilak">biały lilak 22zł</option>
+                    <option value="bordowe_chryzantemy">bordowe chryzantemy 24zł</option>
+                </select>
+                <div class="error-msg" id="_ERROR_Wybur_Bukietu_"></div>
+        
+                <label for="_Input_Ilosc_Bukietu_">Ilość :</label>
+                <input type="number" id="_Input_Ilosc_Bukietu_" name="_Input_Ilosc_Bukietu_" min="1" max="50" value="1"
+                    required>
+                <div class="error-msg" id="_ERROR_ILOSC_"></div>
+                <!-- WYMÓG NA 4.0: DODATKOWE USŁUGI -->
+                <legend>Wybierz dodatkowe usługi:</legend>
+    
+                <input type="checkbox" id="usluga1" class="opcja-uslugi" value="dostawa">
+                <label for="usluga1">Dostawa na specjalne wydarzenie lub adres 10zł</label><br>
+
+                 <input type="checkbox" id="usluga2" class="opcja-uslugi" value="dodatkowa_dekoracja">
+                 <label for="usluga2">Dodatkowa dekoracja 15zł</label><br>
+
+                <input type="checkbox" id="usluga3" class="opcja-uslugi" value="kartka_z_zyczeniami">
+                 <label for="usluga3">Karteczka z życzeniami 5zł</label>
+            </fieldset>
+        
+                <button type="button" id="_BTN_DODAJ_DO_KOSZYKA_">Dodaj do koszyka</button>
+            <fieldset>
+                <legend>1. Dane Kontaktowe i Podstawowe </legend>
+        
+                <label for="_INPUT_IMIE_">Imię :</label>
+                <input type="text" id="_INPUT_IMIE_" name="_INPUT_IMIE_" minlength="2" required>
+                <div class="error-msg" id="_ERROR_IMIE_"></div>
+        
+                <label for="_INPUT_NAZWISKO_">Nazwisko :</label>
+                <input type="text" id="_INPUT_NAZWISKO_" name="_INPUT_NAZWISKO_" minlength="2" required>
+                <div class="error-msg" id="_ERROR_NAZWISKO_"></div>
+        
+                <label for="_INPUT_EMAIL_">E-mail :</label>
+                <input type="email" id="_INPUT_EMAIL_" name="_INPUT_EMAIL_" required>
+                <div class="error-msg" id="_ERROR_EMAIL_"></div>
+                <label for="_INPUT_TELEFON_">Telefon :</label>
+                <input type="tel" id="_INPUT_TELEFON_" name="_INPUT_TELEFON_" required>
+                <div class="error-msg" id="_ERROR_TELEFON_"></div>
+            </fieldset>
+            <!-- WYMÓG NA 4.0: Wyświetlanie sumy "na żywo" -->
+            <h3 style="text-align: right; color: var(--kolor-akcentu);">
+                Suma do zapłaty: <span id="_TEXT_SUMA_NA_ZYWO_">0.00 PLN</span>
+            </h3>
+            <button type="submit" class="btn-wyslij">Złóż zamówienie z zapłatą</button>
+        
+        </form>
+        
+        <!-- ========================================================================= -->
+        <!-- [WYMÓG NA 5.0] DYNAMICZNIE ODKRYWANE POLA                                 -->
+        <!-- ========================================================================= -->
+        <fieldset>
+            <section id="_koszyk_">
+                <h2>Koszyk </h2>
+        
+                <table border="1" id="_TABELA_WYNIKOW_" style="width:100%;">
+                    <!-- Nagłówek tabeli -->
+                    <thead>
+                        <tr>
+                            <th>Nazwa Bukietu</th>
+                            <th>Cena Jedn.</th>
+                            <th>Ilość</th>
+                            <th>Wartość</th>
+                            <th>Akcja</th>
+                        </tr>
+                    </thead>
+                    <!-- Ciało tabeli -->
+                    <tbody id="_TABELA_BODY_">
+                        <!-- Wygenerowane dynamicznie wiersze -->
+                    </tbody>
+                    <!-- Stopka tabeli -->
+                    <tfoot>
+                        <tr>
+                            <!-- colspan="3" łączy trzy komórki w jedną -->
+                            <td colspan="3" style="text-align: right;"><strong>SUMA / PODSUMOWANIE:</strong></td>
+                            <td><strong id="_TEXT_SUMA_">0.00</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </section>
+        </fieldset>
+        <fieldset>
+            <legend>3. Opcje Dodatkowe </legend>
+        
+            <input type="checkbox" id="_CHECKBOX_AKTYWATOR_" name="_CHECKBOX_AKTYWATOR_">
+            <label for="_CHECKBOX_AKTYWATOR_">Wymagane dodatkowe dane (np. Inny adres, Faktura)</label><br>
+        
+            <div id="_UKRYTA_SEKCJA_"
+                style="display: none; background: #eee; padding: 15px; margin-top: 10px; border-left: 4px solid red;">
+                <label for="_INPUT_UKRYTY_1_">Dodatkowe Pole 1:</label>
+                <input type="text" id="_INPUT_UKRYTY_1_">
+                <div class="error-msg" id="_ERROR_UKRYTY_1_"></div>
+            </div>
+        
+            <label for="_TEXTAREA_UWAGI_">Dodatkowe uwagi:</label><br>
+            <textarea id="_TEXTAREA_UWAGI_" name="_TEXTAREA_UWAGI_" rows="3" style="width: 100%;"></textarea>
+        </fieldset>
+        </section>
+    </main>
+
+    <footer>
+        <hr>
+        <p>&copy; 2026 Projekt zaliczeniowy: Adam Lech 73264</p>
+    </footer>
+
+</body>

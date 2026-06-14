@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kolokwium - Adam Lech 73264 - Strona do zamawiania bukietów</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Strona do zamawiania bukietów</h1>
+        <p>Adam Lech 73264</p>
+        <hr> 
+    </header>
+    <nav>
+        <ul class="uklad-flex">
+            <li><a href="#formularz-glowny-sekcja">Formularz Zgłoszeniowy</a></li>
+            <li><a href="#tabela-danych-sekcja"> Koszyk</a></li>
+        </ul>
+        <hr>
+    </nav>
+
+    <main>
+        <section id="formularz-glowny-sekcja"> 
+            <h2>Wypełnij dane</h2>
+        <!-- ================================================================================= -->
+        <!-- zad na 3  formularz zawierający pola wyboru rodzaju bukietu i danych kontaktowych -->
+        <!-- ================================================================================= -->
+        <form id="_ID_FORMULARZA_" novalidate>   
+            <fieldset>
+                    <legend>Wybór rodzaju bukietu</legend>
+                    <label for="_Rodaj_Bukietu">Wybierz rodzaj bukietu:</label>
+                    <select id="_Rodaj_Bukietu" name="_Rodaj_Bukietu" required>
+                        <option value="">-- Wybierz z listy --</option>
+                        <option value="różowy_różany">różowy różany 20zł</option>
+                        <option value="biały_lilak">biały lilak 22zł</option>
+                        <option value="bordowe_chryzantemy">bordowe chryzantemy 24zł</option>
+                    </select>
+                    <div class="error-msg" id="_ERROR_Wybur_Bukietu_"></div>
+
+                    <label for="_Input_Ilosc_Bukietu_">Ilość :</label>
+                    <input type="number" id="_Input_Ilosc_Bukietu_" name="_Input_Ilosc_Bukietu_" min="1" max="50" value="1" required>
+                    <div class="error-msg" id="_ERROR_ILOSC_"></div>
+
+                    <!-- WYMÓG NA 4.0: DODATKOWE USŁUGI -->
+                    <label for="_Rodaj_Uslugi_">Wybierz dodatkowych usług:</label>
+                    <select id="_Rodaj_Uslugi_" name="_Rodaj_Uslugi_">
+                        <option value="">Brak</option>
+                        <option value="dostawa">dostawa na specjalne wydarzenie lub adres 10zł</option>
+                        <option value="dodatkowa_dekoracja">dodatkowa dekoracja 15zł</option>
+                        <option value="kartka_z_zyczeniami">karteczka z życzeniami 5zł</option>
+                    </select>
+                    <div class="error-msg" id="_ERROR_Wybur_Usług_"></div>
+                </fieldset>
+  
+                <fieldset>
+                    <legend>1. Dane Kontaktowe i Podstawowe </legend>
+                    
+                    <label for="_INPUT_IMIE_">Imię :</label>
+                    <input type="text" id="_INPUT_IMIE_" name="_INPUT_IMIE_" minlength="2" required>
+                    <div class="error-msg" id="_ERROR_IMIE_"></div>
+                    
+                    <label for="_INPUT_NAZWISKO_">Nazwisko :</label>
+                    <input type="text" id="_INPUT_NAZWISKO_" name="_INPUT_NAZWISKO_" minlength="2" required>
+                    <div class="error-msg" id="_ERROR_NAZWISKO_"></div>
+
+                    <label for="_INPUT_EMAIL_">E-mail :</label>
+                    <input type="email" id="_INPUT_EMAIL_" name="_INPUT_EMAIL_" required>
+                    <div class="error-msg" id="_ERROR_EMAIL_"></div>
+                    
+                    <label for="_INPUT_TELEFON_">Telefon :</label>
+                    <input type="tel" id="_INPUT_TELEFON_" name="_INPUT_TELEFON_" required>
+                    <div class="error-msg" id="_ERROR_TELEFON_"></div>
+                </fieldset>
+                <!-- WYMÓG NA 4.0: Wyświetlanie sumy "na żywo" -->
+                <h3 style="text-align: right; color: var(--kolor-akcentu);">
+                    Suma do zapłaty: <span id="_TEXT_SUMA_NA_ZYWO_">0.00 PLN</span>
+                </h3>
+                <button type="submit" class="btn-wyslij">Złóż zamówienie z zapłatą</button>
+        </form>         
+        </section>
+    </main>
+
+    <footer>
+        <hr>
+        <p>&copy; 2026 Projekt zaliczeniowy: Adam Lech 73264</p>
+    </footer>
+
+</body>
